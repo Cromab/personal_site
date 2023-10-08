@@ -1,0 +1,25 @@
+[theme]
+
+# Primary accent for interactive elements
+primaryColor = '#d0bdf4'
+
+# Background color for the main content area
+backgroundColor = '#494D5F'
+
+# Background color for sidebar and most interactive widgets
+secondaryBackgroundColor = '#a28089'
+
+# Color used for almost all text
+textColor = '#a0d2eb'
+
+# Font family for all text in the app, except code blocks
+# Accepted values (serif | sans serif | monospace) 
+# Default: "sans serif"
+font = "sans serif"
+
+[mapbox]
+
+# Configure Streamlit to use a custom Mapbox token for elements like st.deck_gl_chart and st.map. To get a token for yourself, create an account at https://mapbox.com. It's free (for moderate usage levels)!
+# Default: ""
+#Remember to hide this on a public repository
+#token = "Your_Token_Here"
