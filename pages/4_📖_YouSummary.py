@@ -55,6 +55,7 @@ if submitted:
 #--- Tokenization and Data clean up ---#
 #Stopwords and punctuation additions
 nltk.download("stopwords")
+nltk.download("punkt")
 stop_words = stopwords.words('english')
 punctuation = punctuation + '\n' + "\'"
 transcript = re.sub(f"[!]", '', transcript)
