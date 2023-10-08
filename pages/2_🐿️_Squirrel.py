@@ -51,7 +51,7 @@ st.markdown("""
             """)
 
 #Reading in data and converting datetime object to string in 'Date' Column
-squirrels = pd.read_csv(r'.\data\2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv')
+squirrels = pd.read_csv('./data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv')
 squirrels['Date'] = pd.to_datetime(squirrels['Date'], format='%m%d%Y').apply(lambda x: x.strftime('%m-%d-%Y'))
 #Display dataframe in webpage
 st.dataframe(
