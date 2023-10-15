@@ -9,7 +9,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from heapq import nlargest
-from deepmultilingualpunctuation import PunctuationModel
 
 #--- Preamble ---#
 #YouStudy page configuration
@@ -61,10 +60,7 @@ stop_words = stopwords.words('english')
 punctuation = punctuation + '\n' + "\'"
 transcript = re.sub(f"[!]", '', transcript)
 transcript = re.sub(f"\[.*\]", '', transcript)
-st.write(transcript)
-model = PunctuationModel()
-transcript = model.restore_punctuation(transcript)
-st.write(transcript)
+
 
 #Frequency Table Creation
 tokens = word_tokenize(transcript)
@@ -101,7 +97,7 @@ for sentence in sentences:
     #sentence_weight[sentence] = sentence_weight[sentence]
 
 #--- Summarize Text ---#
-select_length = int(len(sentence_weight)*0.3)
+select_length = int(len(sentence_weight)*0.3+1)
 summary = nlargest(select_length, sentence_weight, key = sentence_weight.get)
 final_summary = [word for word in summary]
 summary = ' '.join(final_summary)
@@ -109,7 +105,6 @@ with st.container():
     st.write("Summary of your video:")
     st.write("---")
     st.write(summary)
-    st.write(select_length, sentence_weight)
     st.write("---")
     
 #--- Closing Statements ---#
