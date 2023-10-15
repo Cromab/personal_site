@@ -9,7 +9,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from heapq import nlargest
-from deepmultilingualpunctuation import PunctuationModel
+import spacy
 
 #--- Preamble ---#
 #YouStudy page configuration
@@ -60,9 +60,11 @@ nltk.download("punkt")
 stop_words = stopwords.words('english')
 punctuation = punctuation + '\n' + "\'"
 transcript = re.sub(f"[!]", '', transcript)
-text = re.sub(f"\[.*\]", '', transcript)
-model = PunctuationModel()
-transcript = model.restore_punctuation(text)
+transcript = re.sub(f"\[.*\]", '', transcript)
+#Add punctuation for audio transcripted youtube videos
+nlp = spacy.load('en_core_web_sm')
+transcript_sentences = nlp(transcript)
+transcript = ". ".join(sentence.text for sentence in transcript_sentences)
 st.write(transcript)
 
 #Frequency Table Creation
