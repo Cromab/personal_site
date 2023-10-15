@@ -40,7 +40,7 @@ with st.form("yt_url"):
             transcript = YouTubeTranscriptApi.get_transcript(video_id) 
             transcript = " ".join(item["text"] for item in transcript)
         except:
-            "Transcript not enabled for this video. Please enter url of a captioned video."
+            st.write("Transcript not enabled for this video. Please enter url of a captioned video.")
             st.stop()
         
 if submitted:
