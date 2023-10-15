@@ -9,6 +9,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from heapq import nlargest
+from deepmultilingualpunctuation import PunctuationModel
 
 #--- Preamble ---#
 #YouStudy page configuration
@@ -59,8 +60,10 @@ nltk.download("punkt")
 stop_words = stopwords.words('english')
 punctuation = punctuation + '\n' + "\'"
 transcript = re.sub(f"[!]", '', transcript)
-transcript = re.sub(f"\[.*\]", '', transcript)
-
+text = re.sub(f"\[.*\]", '', transcript)
+model = PunctuationModel()
+transcript = model.restore_punctuation(text)
+st.write(transcript)
 
 #Frequency Table Creation
 tokens = word_tokenize(transcript)
