@@ -61,6 +61,7 @@ stop_words = stopwords.words('english')
 punctuation = punctuation + '\n' + "\'"
 transcript = re.sub(f"[!]", '', transcript)
 transcript = re.sub(f"\[.*\]", '', transcript)
+st.write(transcript)
 model = PunctuationModel()
 transcript = model.restore_punctuation(transcript)
 st.write(transcript)
