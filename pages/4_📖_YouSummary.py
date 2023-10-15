@@ -9,7 +9,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from heapq import nlargest
-import spacy
+from transformers import T5Tokenizer, TFT5ForConditionalGeneration
 
 #--- Preamble ---#
 #YouStudy page configuration
@@ -62,10 +62,14 @@ punctuation = punctuation + '\n' + "\'"
 transcript = re.sub(f"[!]", '', transcript)
 transcript = re.sub(f"\[.*\]", '', transcript)
 #Add punctuation for audio transcripted youtube videos
-nlp = spacy.load('en_core_web_sm')
-transcript_sentences = nlp(transcript)
-transcript = ". ".join(sentence.text for sentence in transcript_sentences)
-st.write(transcript)
+tokenizer = T5Tokenizer.from_pretrained('SJ-Ray/Re-Punctuate')
+model = TFT5ForConditionalGeneration.from_pretrained('SJ-Ray/Re-Punctuate')
+input_text = transcript
+inputs = tokenizer.encode("punctuate: " + input_text, return_tensors="tf")
+result = model.generate(inputs)
+decoded_output = tokenizer.decode(result[0], skip_special_tokens=True)
+st.write(decoded_output)
+
 
 #Frequency Table Creation
 tokens = word_tokenize(transcript)
@@ -102,7 +106,7 @@ for sentence in sentences:
     #sentence_weight[sentence] = sentence_weight[sentence]
 
 #--- Summarize Text ---#
-select_length = int(len(sentence_weight)*0.3+1)
+select_length = int(len(sentence_weight)*0.3)
 summary = nlargest(select_length, sentence_weight, key = sentence_weight.get)
 final_summary = [word for word in summary]
 summary = ' '.join(final_summary)
