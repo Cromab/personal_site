@@ -104,6 +104,7 @@ with st.container():
     st.write("Summary of your video:")
     st.write("---")
     st.write(summary)
+    st.write(select_length, sentence_weight)
     st.write("---")
     
 #--- Closing Statements ---#
